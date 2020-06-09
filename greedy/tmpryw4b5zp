@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jun  4 21:52:33 2020
+
+@author: steve
+"""
+
+"""
+1296. Divide Array in Sets of K Consecutive Numbers
+https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers/
+"""
+
+# I think the easiest way for me is to sort it first
+
+
+
+def isPossibleDivide(nums,k):
+    if len(nums) % k != 0:
+        return False
+   
+    nums = sorted(nums) #Requires O(nlogn)
+    print(nums)
+    
+    while nums:
+        check_num = nums[0]
+        for i in range(check_num,check_num + k):
+            try:
+                nums.remove(i)
+            except:
+                return False
+        print(nums)
+        
+    
+    return True
+    
+    
+
+
+
+
+nums = [3,2,1,2,3,4,3,4,5,9,10,11]
+k = 3
+print(isPossibleDivide(nums,k))

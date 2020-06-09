@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jun  4 22:26:23 2020
+
+@author: steve
+"""
+
+"""
+1306. Jump Game III
+
+https://leetcode.com/problems/jump-game-iii/
+
+"""
+
+def canReach(arr, start):
+    que = [start]
+    visited = {(arr[start],start)}
+    
+    while que:
+        cur_index = que.pop(0)
+        cur_val = arr[cur_index]
+        
+        left_index = cur_index - cur_val
+        left_val %= len(arr)
+        left_val = arr[left_index]
+        
+        right_index = cur_index + cur_val
+        right_index %= len(arr)
+        right_val = arr[right_index]
+        
+        print((left_val,left_index),(right_val,right_index))
+        
+        if left_val * right_val == 0:
+            return True
+        
+        if (left_val,left_index) not in visited:
+            visited.add((left_val,left_index))
+            que += [left_index]
+        
+        if (right_val,right_index) not in visited:
+            visited.add((right_val,right_index))
+            que += [right_index]
+            
+        
+
+    return False
+    
+    
+    
+# arr = [4,2,3,0,3,1,2]
+# start = 5
+
+# arr = [4,2,3,0,3,1,2]
+# start = 0
+
+arr = [3,0,2,1,2]
+start = 2
+
+print(canReach(arr,start))

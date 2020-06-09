@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 29 17:59:51 2020
+
+@author: steve
+"""
+
+"""
+53. Maximum Subarray
+
+
+"""
+
+def maxSubArray(nums):
+     
+     # So we want to compute the maximum 'reward' that can be obtained by adding nums[i]
+     # Start from right to left
+     
+     reward = [0.1]*len(nums)
+     reward[-1] = nums[-1]
+     
+     def rewardfunction(n):
+         if n == len(nums)-1:
+             return reward[n]
+         elif reward[n] == 0.1:
+             reward[n] = max(nums[n], nums[n] + rewardfunction(n+1))
+             print(n)
+             print(reward)
+         else:
+             return reward[n]
+     
+     rewardfunction(0)
+        
+
+
+a = [-2,1,-3,4,-1,2,1,-5,4]
+print(maxSubArray(a))
