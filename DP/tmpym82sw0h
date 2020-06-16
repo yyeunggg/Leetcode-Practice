@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jun  9 22:46:20 2020
+
+@author: steve
+"""
+
+"""
+787. Cheapest Flights Within K Stops
+https://leetcode.com/problems/cheapest-flights-within-k-stops/
+
+"""
+
+
+
+# Regular Dijkstra method
+class Solution:
+    def findCheapestPrice(self, n, flights, src, dst, K):
+        
+        self.vertices = {}
+        
+        # Clean data according to my convention
+        for edge in flights:
+            if edge[0] not in self.vertices:
+                self.vertices[edge[0]] = [(edge[1],edge[2]]
+            else:
+                self.vertices[edge[0]].append((edge[1],edge[2])
+                
+        print(self.vertices)
+        
+        
+        
+        
+
+
+
+
+n = 3
+flights = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0
+dst = 2
+K = 1
+
+
+sol = Solution()
+print(sol.findCheapestPrice(n,flights,src,dst,K))
+        

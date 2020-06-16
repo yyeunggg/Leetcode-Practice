@@ -1,0 +1,88 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jun  9 22:46:20 2020
+
+@author: steve
+"""
+
+"""
+787. Cheapest Flights Within K Stops
+https://leetcode.com/problems/cheapest-flights-within-k-stops/
+
+"""
+
+
+
+# Try DP
+class Solution:
+    def findCheapestPrice(self, n, flights, src, dst, K):
+        K += 1
+        self.dest = dst        
+
+        # Clean data according to my convention
+        # So every state is (vertices,stop)
+        starts = {}
+        states = {}
+        for flight in flights:
+            if flight[0] not in starts:
+                starts[flight[0]] = [(flight[1],flight[2])]
+            else:
+                starts[flight[0]].append((flight[1],flight[2]))
+
+        self.cost = {}
+        self.cost[(src,K)] = float('inf')
+        
+        # print(starts)
+        
+        if src not in starts:
+            return -1
+        
+        def find_next_state(current_city, remain_stop):
+            if remain_stop < 0 or current_city not in starts:
+                self.cost[(current_city,remain_stop)] = float('inf')
+                return float('inf')
+            
+            if current_city == self.dest:
+                self.cost[(current_city,remain_stop)] = 0
+                return 0
+            
+            if (current_city,remain_stop) not in self.cost:
+                self.cost[(current_city,remain_stop)] = float('inf')
+            
+            for neighbors in starts[current_city]:
+                next_city = neighbors[0]
+                cost = neighbors[1]
+                cost += find_next_state(next_city, remain_stop - 1)
+                self.cost[(current_city,remain_stop)] = min(self.cost[(current_city,remain_stop)],cost)
+                
+            return self.cost[(current_city,remain_stop)]
+        
+                
+        find_next_state(src,K)
+        print(self.cost)
+        if self.cost[(src,K)] == float('inf'):
+            return -1
+        return self.cost[(src,K)]
+            
+
+n = 3
+flights = [[0,1,100],[1,2,200],[0,2,300],[2,3,100],[1,3,600],[0,3,500],[0,4,2000],[3,4,100]]
+src = 0
+dst = 4
+K = 5
+
+n = 3
+flights = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0 
+dst = 2
+K = 1
+
+# n = 5
+# flights = [[3,0,8],[1,4,1],[1,0,4],[1,3,3],[3,4,1],[2,3,3],[2,0,10]]
+# src = 1
+# dst = 4
+# K = 4
+
+sol = Solution()
+print(sol.findCheapestPrice(n,flights,src,dst,K))
+        

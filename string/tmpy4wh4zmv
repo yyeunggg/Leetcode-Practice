@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun 10 10:51:18 2020
+
+@author: steve
+"""
+
+"""
+387. First Unique Character in a String
+
+"""
+
+
+class Solution:
+    def firstUniqChar(self, s):
+        
+        mem = {}
+        letter = {}
+        
+        if not s:
+            return -1
+        
+        for i,let in enumerate(s):
+            if let not in mem:
+                mem[let] = i
+                letter[let] = ''
+            else:
+                try:
+                    del letter[let]
+                except:
+                    pass
+                
+        print(mem,letter)
+        
+        # key = next(iter(mem))
+        # # key = mem.items()
+        # print(key)
+        # # print(letters)
+        
+        for key in letter.keys():
+            value = mem[key]
+            print(value)
+            return value
+        
+        return -1
+        
+        
+        
+
+
+
+s = 'leetcode'
+# s = ""
+# s = "aadadaad"
+
+sol = Solution()
+print(sol.firstUniqChar(s))
